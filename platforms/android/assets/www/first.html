@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
+     <script>
+  $.getJSON('file21.json', function(data) {
+        var output="<table data-role='table' data-mode='columntoggle' class='ui-responsive ui-shadow' id='myTable'>";
+         output+="<thead>";
+        output+= "<tr>";
+         output+="<th></th>";
+          output+="<th data-priority='1'>ID</th>";
+          output+="<th >ProductName</th>";
+          output+="<th ></th>";
+          <!-- output+="<th data-priority='1'>Model</th>";-->
+          <!--output+="<th data-priority='1'>products_Des</th>";-->
+          output+=" </tr>";
+      output+="</thead>";
+      output+="<tbody>";
+        output+= "<tr>";
+        for (var i in data.users) {
+            <!-- output+="<td><img src="+ data.users[i].image+"></td><td>" + data.users[i].products_id +"</td><td>"+ data.users[i].products_name+ "</td><td>"+ data.users[i].products_model+"</td><td>"+ data.users[i].products_Des+"</td>";-->
+            output+="<td><img src="+ data.users[i].image+"></td><td>" + data.users[i].products_id +"</td><td>"+ data.users[i].products_name+ "</br>"+ data.users[i].products_model+"</br>"+ data.users[i].products_Des+"</td>";
+            output+="<td> <input type='button'  value='Click Me!'></td>";
+            output+="</tr>";
+        }
+             output+="</tbody>  </table>";
+          document.getElementById("placeholder").innerHTML=output;
+  });
+  
+
+    </script>
+<style>
+body,a ,table{font-family: heaventica, sans-serif; font-size:0.9em;}
+</style>
+
+
+<script type="text/javascript" charset="utf-8">
+
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value 
+
+// Wait for Cordova to connect with the device
+//
+document.addEventListener("deviceready",onDeviceReady,false);
+
+// Cordova is ready to be used!
+//
+function onDeviceReady() {
+    pictureSource=navigator.camera.PictureSourceType;
+    destinationType=navigator.camera.DestinationType;
+}
+
+// Called when a photo is successfully retrieved
+//
+function onPhotoDataSuccess(imageData) {
+  // Uncomment to view the base64 encoded image data
+  // console.log(imageData);
+
+  // Get image handle
+  //
+  var smallImage = document.getElementById('smallImage');
+
+  // Unhide image elements
+  //
+  smallImage.style.display = 'block';
+
+  // Show the captured photo
+  // The inline CSS rules are used to resize the image
+  //
+  smallImage.src = "data:image/jpeg;base64," + imageData;
+}
+
+// Called when a photo is successfully retrieved
+//
+function onPhotoURISuccess(imageURI) {
+  // Uncomment to view the image file URI 
+  // console.log(imageURI);
+
+  // Get image handle
+  //
+  var largeImage = document.getElementById('largeImage');
+
+  // Unhide image elements
+  //
+  largeImage.style.display = 'block';
+
+  // Show the captured photo
+  // The inline CSS rules are used to resize the image
+  //
+  largeImage.src = imageURI;
+}
+
+// A button will call this function
+//
+function capturePhoto() {
+  // Take picture using device camera and retrieve image as base64-encoded string
+  navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+    destinationType: destinationType.DATA_URL });
+}
+
+// A button will call this function
+//
+function capturePhotoEdit() {
+  // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
+  navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+    destinationType: destinationType.DATA_URL });
+}
+
+// A button will call this function
+//
+function getPhoto(source) {
+  // Retrieve image file location from specified source
+  navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+    destinationType: destinationType.FILE_URI,
+    sourceType: source });
+}
+
+// Called if something bad happens.
+// 
+function onFail(message) {
+  alert('Failed because: ' + message);
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<!-- page 1 ----------------------------------------------------------------------------------------------------------------------------->
+<div data-role="page" id="pageone">
+  <div data-role="panel" id="overlayPanel" data-display="overlay"> 
+     <ul data-role="listview">
+   <li data-icon="user"><a href="#placeholder2" style= font-size:0.9em;>About Us</a></li>
+  <li data-icon="recycle"><a href="#" style= font-size:0.9em;>Services</a></li>
+  <li data-icon="star"><a href="#placeholder1" style= font-size:0.9em;>Product</a></li>
+  <li data-icon="comment"><a href="#placeholder4" style= font-size:0.9em;>Feedback</a></li>
+  <li data-icon="phone"><a href="#placeholder3" style= font-size:0.9em;>Contact Us</a></li>
+  <li data-icon="info"><a href="#" style= font-size:0.9em;>News</a></li>
+  <li data-icon="gear"><a href="#" style= font-size:0.9em;>Setting</a></li>
+
+</ul>  
+  </div> 
+    <div data-role="header" data-position="fixed">
+   <a role="button" data-role="button" data-mini="true" href="#overlayPanel" class="ui-btn-left ui-btn-corner-all ui-btn  ui-icon-bars ui-btn-icon-notext ui-shadow" title=" Home " data-form="ui-icon" data-theme="z" > 
+     Menu</a>
+     <h1 style="text-align: left">Welcome To My Homepage</h1>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#pageone">Home</a></li>
+        <li><a href="http://www.google.com">Page Two</a></li>
+        <li><a href="#">Search</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <a href="#overlayPanel" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">Overlay Panel</a>
+    <button onclick="capturePhoto();">Capture Photo</button> <br>
+<button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
+<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+<img style="display:none;" id="largeImage" src="" />
+          </div>
+    </div> 
+<!--- Second page (Product page)-------------------------------------------------------------------------------------------------------------------------------------------------->
+<div data-role="page" id="placeholder1">
+  <div data-role="panel" id="overlayPanel1" data-display="overlay"> 
+    <ul data-role="listview">
+   <li data-icon="user"><a href="#placeholder2" style= font-size:0.9em;>About Us</a></li>
+  <li data-icon="recycle"><a href="#" style= font-size:0.9em;>Services</a></li>
+  <li data-icon="star"><a href="#placeholder1" style= font-size:0.9em;>Product</a></li>
+  <li data-icon="comment"><a href="#placeholder4" style= font-size:0.9em;>Feedback</a></li>
+  <li data-icon="phone"><a href="#placeholder3" style= font-size:0.9em;>Contact Us</a></li>
+  <li data-icon="info"><a href="#" style= font-size:0.9em;>News</a></li>
+  <li data-icon="gear"><a href="#" style= font-size:0.9em;>Setting</a></li>
+</ul>  
+</div> 
+
+    <div data-role="header" data-position="fixed">
+   <a role="button" data-role="button" href="#overlayPanel1" class="ui-btn-left ui-btn-corner-all ui-btn  ui-icon-bars ui-btn-icon-notext ui-shadow" title=" Home " data-form="ui-icon"> 
+          Menu</a>
+     <h1>Product</h1>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#pageone">Home</a></li>
+        <li><a href="http://www.google.com">Page Two</a></li>
+        <li><a href="#">Search</a></li>
+      </ul>
+    </div>
+  </div>
+<div data-role="main" class="ui-content" id="placeholder">
+
+ </div>
+   </div>
+
+<!--------------thirdpage(About us)-------------------------------------------------------------------------------------->
+<div data-role="page" id="placeholder2">
+  <div data-role="panel" id="overlayPanel2" data-display="overlay"> 
+    <ul data-role="listview">
+   <li data-icon="user"><a href="#placeholder2" style= font-size:0.9em;>About Us</a></li>
+  <li data-icon="recycle"><a href="#" style= font-size:0.9em;>Services</a></li>
+  <li data-icon="star"><a href="#placeholder1" style= font-size:0.9em;>Product</a></li>
+  <li data-icon="comment"><a href="#placeholder4" style= font-size:0.9em;>Feedback</a></li>
+  <li data-icon="phone"><a href="#placeholder3" style= font-size:0.9em;>Contact Us</a></li>
+  <li data-icon="info"><a href="#" style= font-size:0.9em;>News</a></li>
+  <li data-icon="gear"><a href="#" style= font-size:0.9em;>Setting</a></li>
+
+</ul>  
+</div> 
+
+    <div data-role="header" data-position="fixed" data-disable-page-zoom="true">
+   <a role="button" data-role="button" href="#overlayPanel2" class="ui-btn-left ui-btn-corner-all ui-btn  ui-icon-bars ui-btn-icon-notext ui-shadow" title=" Home " data-form="ui-icon"> 
+          Menu</a>
+     <h1>About Us</h1>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#pageone">Home</a></li>
+        <li><a href="http://www.google.com">Page Two</a></li>
+        <li><a href="#">Search</a></li>
+      </ul>
+    </div>
+  </div>
+<div data-role="main" class="ui-content" id="about">
+<h2>About Us</h2>
+<p>
+Samarth Bharat InfoTech is one of the global provider of information technology services and business solutions.  <br />
+Samarth Bharat InfoTech is all about group of programmers, marketing persons where all the works are shared among the members.</p>
+<h2>Vision</h2> 
+<p>
+Our vision is to achieve global IT services leadership in providing value-added high quality IT solutions to our clients in selected horizontal and vertical segments, by combining technology skills, domain expertise, process focus and a commitment to long-term client relationships. We have integrated Six Sigma techniques to focus on continuous, measurable process improvement, with powerful analytical tools and sophisticated review processes.</p>
+ </div>
+</div>
+<!--------------Contact US Page(Contact us)-------------------------------------------------------------------------------------->
+
+<div data-role="page" id="placeholder3">
+  <div data-role="panel" id="overlayPanel3" data-display="overlay"> 
+    <ul data-role="listview">
+   <li data-icon="user"><a href="#placeholder2" style= font-size:0.9em;>About Us</a></li>
+  <li data-icon="recycle"><a href="#" style= font-size:0.9em;>Services</a></li>
+  <li data-icon="star"><a href="#placeholder1" style= font-size:0.9em;>Product</a></li>
+  <li data-icon="comment"><a href="#placeholder4" style= font-size:0.9em;>Feedback</a></li>
+  <li data-icon="phone"><a href="#placeholder3" style= font-size:0.9em;>Contact Us</a></li>
+  <li data-icon="info"><a href="#" style= font-size:0.9em;>News</a></li>
+  <li data-icon="gear"><a href="#" style= font-size:0.9em;>Setting</a></li>
+
+</ul>   
+</div> 
+
+    <div data-role="header" data-position="fixed">
+   <a role="button" data-role="button" href="#overlayPanel3" class="ui-btn-left ui-btn-corner-all ui-btn  ui-icon-bars ui-btn-icon-notext ui-shadow" title=" Home " data-form="ui-icon"> 
+          Menu</a>
+     <h1>Contact</h1>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#pageone">Home</a></li>
+        <li><a href="http://www.google.com">Page Two</a></li>
+        <li><a href="#">Search</a></li>
+      </ul>
+    </div>
+  </div>
+<div data-role="main" class="ui-content" id="contact">
+<h2>Contact Us</h2>
+<table border="0">
+<tr>
+<td>
+<img src="images/home.png" />
+</td>
+<td>&nbsp;</td>
+<td>
+101, Building No-2, B-wing, Shivkala Arcade, Boisar, Tal. Palghar, Dist: Palghar, 401501, Maharashtra.
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<img src="images/phone1.png" />
+</td>
+<td>&nbsp;</td>
+<td>
+<a href="tel:02525-692225">02525-692225</a>
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td>
+<img src="images/mail.jpg" />
+</td>
+<td>&nbsp;</td>
+<td>
+<a href="mailto:admin@sbitinfo.in">admin@sbitinfo.in</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<!--------------FeedBack Page(FeedBack)-------------------------------------------------------------------------------------->
+
+<div data-role="page" id="placeholder4">
+  <div data-role="panel" id="overlayPanel4" data-display="overlay"> 
+  <ul data-role="listview">
+   <li data-icon="user"><a href="#placeholder2" style= font-size:0.9em;>About Us</a></li>
+  <li data-icon="recycle"><a href="#" style= font-size:0.9em;>Services</a></li>
+  <li data-icon="star"><a href="#placeholder1" style= font-size:0.9em;>Product</a></li>
+  <li data-icon="comment"><a href="#placeholder4" style= font-size:0.9em;>Feedback</a></li>
+  <li data-icon="phone"><a href="#placeholder3" style= font-size:0.9em;>Contact Us</a></li>
+  <li data-icon="info"><a href="#" style= font-size:0.9em;>News</a></li>
+  <li data-icon="gear"><a href="#" style= font-size:0.9em;>Setting</a></li>
+
+</ul>  
+</div> 
+
+    <div data-role="header" data-position="fixed">
+   <a role="button" data-role="button" href="#overlayPanel4" class="ui-btn-left ui-btn-corner-all ui-btn  ui-icon-bars ui-btn-icon-notext ui-shadow" title=" Home " data-form="ui-icon"> 
+          Menu</a>
+     <h1>Feedback</h1>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="#pageone">Home</a></li>
+        <li><a href="http://www.google.com">Page Two</a></li>
+        <li><a href="#">Search</a></li>
+      </ul>
+    </div>
+  </div>
+<div data-role="main" class="ui-content" id="feedback">
+<h2>Your Feedback Here</h2>
+
+<form name="contact_form" class="contact_form" method="post" action="feedback.php" target="feedback" >
+
+<div>
+<label for="name">Name:</label>
+<input type="text" name="name" required>
+</div>
+        
+<div>
+<label for="email">Email Id:</label>
+<input type="text" name="email" required>
+</div>
+
+<div>
+<label for="phone">Telephone No.:</label>
+<input type="text" name="telephone"  onKeyPress="return isNumberKey(event)" maxlength="12" required>
+</div>
+
+<div>
+<label for="message">Message:</label>
+<textarea name="message" required ></textarea>
+</div>
+
+<div>
+<input type="submit" value="Submit" name="submit">
+</div>
+
+</form>
+
+
+</div>
+</div>
+</body>
+</html>
